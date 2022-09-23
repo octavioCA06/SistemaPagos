@@ -114,6 +114,8 @@ public class ConsultaPagos extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jDateFilter = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
+        jcbTratamientoFilter = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMaximumSize(new java.awt.Dimension(6, 6));
@@ -199,6 +201,12 @@ public class ConsultaPagos extends javax.swing.JInternalFrame {
         jLabel5.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         jLabel5.setText("Fecha:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 100, -1, 30));
+
+        jcbTratamientoFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"Seleccione...", "Ortodoncia", "Ortopedia" }));
+        jPanel1.add(jcbTratamientoFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 550, 150, -1));
+
+        jLabel7.setText("Tratamiento:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 530, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -395,7 +403,7 @@ if(rs.next()) { //se valida si hay resultados
 
             fecha=""+year+"-"+Smes+"-"+dia;
         }
-        
+        String tratamiento = (jcbTratamientoFilter.getSelectedIndex() == 0) ? ("") : (jcbTratamientoFilter.getSelectedItem().toString());
         //System.out.println(fecha);
         
         File f= new File ("");
@@ -403,6 +411,7 @@ if(rs.next()) { //se valida si hay resultados
         
         Map params = new HashMap();
         params.put("fecha", fecha);
+        params.put("tratamiento", tratamiento);
         //System.out.println(params.isEmpty());
         //JasperReport jr = JasperCompileManager.compileReport("/src/sistemapagosineso/reportAcumuladoIneso.jrxml");
         // JasperReport jr = JasperCompileManager.compileReport("C:\\Users\\camif\\OneDrive\\Documentos\\NetBeansProjects\\SistemaPagosIneso\\src\\sistemapagosineso/reportAcumuladoIneso.jrxml");
@@ -431,9 +440,11 @@ if(rs.next()) { //se valida si hay resultados
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> jcbTratamientoFilter;
     private javax.swing.JTable tbPagos;
     private javax.swing.JTextField tfPaciente1;
     // End of variables declaration//GEN-END:variables
