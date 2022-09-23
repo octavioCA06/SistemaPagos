@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9ffb3038-7b1d-4971-9527-5476de352376">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="fecha" class="java.lang.String"/>
+	<parameter name="tratamiento" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM ineso WHERE Fecha LIKE '%$P!{fecha}%' AND Tratamiento LIKE '%$P!{tratamiento}%']]>
+	</queryString>
+	<field name="Alumno" class="java.lang.String"/>
+	<field name="Paciente" class="java.lang.String"/>
+	<field name="Grupo" class="java.lang.String"/>
+	<field name="Ciclo" class="java.lang.String"/>
+	<field name="Fecha" class="java.sql.Date"/>
+	<field name="Concepto" class="java.lang.String"/>
+	<field name="Tratamiento" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="89" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="192" y="60" width="218" height="29" uuid="27b396c3-de4e-4f8f-8f7f-167f50146fbc"/>
+				<textElement>
+					<font fontName="Times New Roman" size="20"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE PAGOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="261" y="47" width="54" height="15" uuid="e73c04b3-6b2f-45b7-98b3-d27122c88b85"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[- INESO -]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="477" y="9" width="100" height="20" uuid="9238b402-e166-42e6-ad1c-347164a13b98"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="16" y="21" width="140" height="41" uuid="ac522954-393f-445f-8f59-bc9d1ff445c6"/>
+				<imageExpression><![CDATA["IMAGENES/LOGO-INESOO.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="5242ff26-f1a0-4933-89e4-3a9d3e5488da"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="43" y="19" width="69" height="15" uuid="b32bf7a0-125c-44cc-adfc-3f82006a03a5"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Alumno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="123" y="20" width="69" height="15" uuid="12e0bc52-cd22-4eae-854d-e940256d3d78"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Paciente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="201" y="19" width="69" height="15" uuid="5aaa6a71-d04b-4b22-a336-c39bd55255ee"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Grupo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="270" y="19" width="69" height="15" uuid="4d32a4c7-36cc-43a6-9312-cf8ee594b282"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Ciclo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="342" y="19" width="55" height="15" uuid="dee957db-9fc1-4300-975a-b3f11b2245ba"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="484" y="20" width="69" height="15" uuid="19d3854f-a95b-4d22-88d3-d306c5990184"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Concepto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="405" y="19" width="72" height="15" uuid="b89d73bf-35e5-4b11-bd11-4b29ede22c45"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Tratamiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="31" height="15" uuid="3fb06681-2e76-4894-996d-f4e6e37f55ce"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="37" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="29" width="555" height="1" uuid="13739f24-81fc-49b1-a4f7-02b4dca81e75"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="43" y="4" width="69" height="28" uuid="1d464788-dda5-449d-8c75-fa94f538d7aa"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Alumno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="123" y="2" width="69" height="29" uuid="c32004aa-f5e1-48f4-ae53-0b72b4708e43"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Paciente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="202" y="3" width="59" height="29" uuid="f0899a7b-153e-4dc6-b9e8-f93258116029"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Grupo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="273" y="2" width="69" height="29" uuid="06766e71-ed60-43f5-8f82-238902ad0f9b"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Ciclo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="342" y="7" width="41" height="15" uuid="ba865813-5034-4440-aec1-86a32be2c6fc"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="484" y="7" width="69" height="15" uuid="91d245b5-4db7-4171-8147-24ba3cf5d772"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Concepto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="405" y="7" width="58" height="15" uuid="a80c782f-19ba-431d-aade-8a9c2bb1379c"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Tratamiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" mode="Transparent" x="0" y="4" width="31" height="20" uuid="fbae4c4f-5bb9-47fb-b615-8a4d316003be"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="0a135432-ad83-4276-86c6-86602f151d8e"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="648e51e5-ee71-4a5a-b9a6-d65473bfb558"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="ec9622f6-fb09-414c-b644-0e84fc2ae346"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
