@@ -1,0 +1,20 @@
+V1.0.0 (20/09/2022) Octavio Colin Antonio (octavio_co.a@hotmail.com)
+ CAMBIOS:
+  -En Consulta (INESO, INPRO), permite generar el recibo del campo seleccionado.
+ CORRECIÓN DE ERRORES:
+
+------------------------------------------------------------------------------------------------------------
+V1.0.1 (21/09/2022) Octavio Colin Antonio (octavio_co.a@hotmail.com)
+ CAMBIOS:
+
+ CORRECCIÓN DE ERRORES:
+  -En Consulta (INESO, INPRO), se reparó el cierre inesperado del programa al cerrar
+   la pantalla de "Generar Reporte"
+------------------------------------------------------------------------------------------------------------
+V1.0.2 (22/09/2022) Octavio Colin Antonio (octavio_co.a@hotmail.com)
+  CAMBIOS:
+    -Se agrego el filtro por fecha para mostrar registros y generar reportes en INESO e INPRO
+
+  CORRECCION DE ERRORES:
+
+------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="nombreingresado2" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM inpro WHERE Paciente = $P{nombreingresado2}]]>
+	</queryString>
+	<field name="Alumno" class="java.lang.String"/>
+	<field name="Paciente" class="java.lang.String"/>
+	<field name="Grupo" class="java.lang.String"/>
+	<field name="Ciclo" class="java.lang.String"/>
+	<field name="Fecha" class="java.sql.Date"/>
+	<field name="Concepto" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="13" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="104" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="255" y="48" width="54" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[- INPRO-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="198" y="64" width="182" height="36"/>
+				<textElement>
+					<font fontName="Times New Roman" size="20"/>
+				</textElement>
+				<text><![CDATA[RECIBO DE PAGO ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="380" y="11" width="175" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[JOSÉ VICENTE VILLADA 305]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="472" y="33" width="107" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="23" y="26" width="119" height="50"/>
+				<imageExpression><![CDATA["C:\\Users\\Samuel Magaña\\Downloads\\LOGO_Inpro.jpeg"]]></imageExpression>
+			</image>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="398" splitType="Stretch">
+			<rectangle>
+				<reportElement x="278" y="96" width="259" height="34"/>
+			</rectangle>
+			<textField>
+				<reportElement style="Detail" x="282" y="105" width="246" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Paciente}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="19" y="56" width="55" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="19" y="76" width="259" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement style="Column header" x="23" y="58" width="69" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="23" y="78" width="139" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Nombre del Alumno:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="278" y="76" width="259" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="74" y="56" width="88" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement style="Column header" x="282" y="78" width="156" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Nombre del Paciente:]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="282" y="105" width="229" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Paciente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="78" y="58" width="48" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="19" y="96" width="259" height="34"/>
+			</rectangle>
+			<textField>
+				<reportElement style="Detail" x="23" y="105" width="242" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Alumno}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="19" y="132" width="259" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement style="Column header" x="23" y="134" width="115" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Grupo/Semestre:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="19" y="152" width="259" height="46"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="278" y="132" width="259" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement style="Column header" x="282" y="134" width="69" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Ciclo:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="278" y="152" width="259" height="46"/>
+			</rectangle>
+			<textField>
+				<reportElement style="Detail" x="283" y="167" width="162" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Ciclo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="23" y="167" width="221" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Grupo}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="19" y="200" width="518" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement style="Column header" x="23" y="203" width="69" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Concepto:]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="23" y="228" width="115" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Concepto}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="19" y="220" width="518" height="34"/>
+			</rectangle>
+			<textField>
+				<reportElement style="Detail" x="23" y="228" width="170" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Concepto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="43" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="6" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="5" width="40" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
