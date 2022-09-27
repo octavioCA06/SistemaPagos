@@ -8,15 +8,30 @@
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
 	<style name="Detail" fontName="Arial" fontSize="12"/>
 	<parameter name="fecha" class="java.lang.String"/>
-	<queryString language="SQL">
+	<queryString>
 		<![CDATA[SELECT * FROM inpro WHERE Fecha LIKE '%$P!{fecha}%']]>
 	</queryString>
-	<field name="Alumno" class="java.lang.String"/>
-	<field name="Paciente" class="java.lang.String"/>
-	<field name="Grupo" class="java.lang.String"/>
-	<field name="Ciclo" class="java.lang.String"/>
-	<field name="Fecha" class="java.sql.Date"/>
-	<field name="Concepto" class="java.lang.String"/>
+	<field name="Folio" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Alumno" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Paciente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Grupo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Ciclo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Fecha" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Concepto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -58,35 +73,35 @@
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement style="Column header" x="52" y="19" width="79" height="15" uuid="f6292f21-7d7f-462a-a314-e03301318839"/>
+				<reportElement style="Column header" x="88" y="19" width="79" height="15" uuid="f6292f21-7d7f-462a-a314-e03301318839"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<text><![CDATA[Alumno]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="143" y="20" width="79" height="15" uuid="5fa35f5d-adb9-4902-bd93-4b511d015dc3"/>
+				<reportElement style="Column header" x="167" y="20" width="79" height="15" uuid="5fa35f5d-adb9-4902-bd93-4b511d015dc3"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<text><![CDATA[Paciente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="226" y="19" width="79" height="15" uuid="18b70ace-9d59-4aac-bd6b-5f811980cc9b"/>
+				<reportElement style="Column header" x="246" y="19" width="79" height="15" uuid="18b70ace-9d59-4aac-bd6b-5f811980cc9b"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<text><![CDATA[Grupo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="315" y="19" width="79" height="15" uuid="97e2e990-75ae-4a4f-a7bb-82ea8be8725f"/>
+				<reportElement style="Column header" x="325" y="19" width="79" height="15" uuid="97e2e990-75ae-4a4f-a7bb-82ea8be8725f"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<text><![CDATA[Ciclo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="397" y="19" width="79" height="15" uuid="3579c617-1a7c-4c21-b5c6-42575922c013"/>
+				<reportElement style="Column header" x="404" y="19" width="79" height="15" uuid="3579c617-1a7c-4c21-b5c6-42575922c013"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
@@ -106,6 +121,13 @@
 				</textElement>
 				<text><![CDATA[No.]]></text>
 			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="33" y="19" width="44" height="15" uuid="29da0418-6cc6-4802-87c0-78d97bece2be"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Folio]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
@@ -117,35 +139,35 @@
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement style="Detail" x="52" y="2" width="79" height="34" uuid="043cf439-c9e2-4d93-a543-d380b2f83c89"/>
+				<reportElement style="Detail" x="88" y="2" width="79" height="34" uuid="043cf439-c9e2-4d93-a543-d380b2f83c89"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Alumno}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="143" y="0" width="79" height="34" uuid="aaec1e33-403b-4e87-8f59-ae44c9c875ce"/>
+				<reportElement style="Detail" x="167" y="0" width="79" height="34" uuid="aaec1e33-403b-4e87-8f59-ae44c9c875ce"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Paciente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="226" y="0" width="61" height="36" uuid="850b1cd3-2c76-42e6-889f-1e947c89bc43"/>
+				<reportElement style="Detail" x="246" y="1" width="61" height="36" uuid="850b1cd3-2c76-42e6-889f-1e947c89bc43"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Grupo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="315" y="0" width="79" height="36" uuid="000c95f8-3a55-41ae-a8a6-84fa80b587b2"/>
+				<reportElement style="Detail" x="325" y="0" width="79" height="36" uuid="000c95f8-3a55-41ae-a8a6-84fa80b587b2"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Ciclo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="398" y="9" width="38" height="15" uuid="f92aca38-b1a4-4bd7-b86f-ad8903ffbd54"/>
+				<reportElement style="Detail" x="410" y="8" width="38" height="15" uuid="f92aca38-b1a4-4bd7-b86f-ad8903ffbd54"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
 				</textElement>
@@ -164,6 +186,13 @@
 					<font fontName="Times New Roman" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="33" y="3" width="46" height="34" uuid="19fbd809-9ba9-429f-ac08-c756709540b8"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format("%05d",$F{Folio})]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `ineso` (
+  `Folio` int(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `Alumno` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Paciente` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Grupo` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
@@ -66,6 +67,7 @@ INSERT INTO `ineso` (`Alumno`, `Paciente`, `Grupo`, `Ciclo`, `Fecha`, `Concepto`
 --
 
 CREATE TABLE `inpro` (
+  `Folio` int(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `Alumno` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Paciente` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Grupo` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
@@ -99,14 +101,14 @@ INSERT INTO `inpro` (`Alumno`, `Paciente`, `Grupo`, `Ciclo`, `Fecha`, `Concepto`
 --
 -- Indices de la tabla `ineso`
 --
-ALTER TABLE `ineso`
-  ADD PRIMARY KEY (`Paciente`);
+-- ALTER TABLE `ineso`
+--  ADD PRIMARY KEY (`Folio`);
 
 --
 -- Indices de la tabla `inpro`
 --
-ALTER TABLE `inpro`
-  ADD PRIMARY KEY (`Paciente`) USING BTREE;
+-- ALTER TABLE `inpro`
+--  ADD PRIMARY KEY (`Folio`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

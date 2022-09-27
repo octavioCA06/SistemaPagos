@@ -134,10 +134,13 @@ public class ConsultaPagos1 extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Nombre del Alumno ", "Nombre del Paciente", "Último Mes Pagado", "Concepto"
+                "Folio", "Nombre del Alumno ", "Nombre del Paciente", "Último Mes Pagado", "Concepto"
             }
         ));
         jScrollPane1.setViewportView(tbPagos2);
+        if (tbPagos2.getColumnModel().getColumnCount() > 0) {
+            tbPagos2.getColumnModel().getColumn(0).setResizable(false);
+        }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 1030, 300));
 
@@ -279,7 +282,12 @@ i-=1;
             
 if(rs.next()) { //se valida si hay resultados
   do {
-    	String[] fila = {rs.getString(1),rs.getString(2),rs.getString(5),rs.getString(6)};
+    	//String[] fila = {rs.getString(1),rs.getString(2),rs.getString(5),rs.getString(6)};
+        String[] fila = {String.format("%05d",Integer.parseInt(rs.getString("Folio"))), 
+                        rs.getString("Alumno"), 
+                        rs.getString("Paciente"), 
+                        rs.getString("Fecha"), 
+                        rs.getString("Concepto")};
     	modelo.addRow(fila);
   } while(rs.next()); //repita mientras existan más datos
 }
@@ -325,7 +333,8 @@ if(rs.next()) { //se valida si hay resultados
              
               Map parametrosx=new HashMap();
               //parametrosx.put("nombreingresado2", tfPaciente2.getText().toString
-              parametrosx.put("nombreingresado2", tbPagos2.getValueAt(tbPagos2.getSelectedRow(), 1));
+              String folioSelected = (String) tbPagos2.getValueAt(tbPagos2.getSelectedRow(), 0);
+              parametrosx.put("folio", folioSelected.replaceFirst("^0+(?!$)", ""));
               
               JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametrosx, con);
 

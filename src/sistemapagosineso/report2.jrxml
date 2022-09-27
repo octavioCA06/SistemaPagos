@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4fe0cc1b-b7c7-41a5-b086-9ea570fb087d">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.9487171000000014"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="288"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
 	<style name="Detail" fontName="Arial" fontSize="12"/>
-	<parameter name="nombreingresado" class="java.lang.String"/>
+	<parameter name="folio" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM ineso WHERE Paciente = $P{nombreingresado}]]>
+		<![CDATA[SELECT * FROM ineso WHERE Folio = $P{folio}]]>
 	</queryString>
 	<field name="Alumno" class="java.lang.String"/>
 	<field name="Paciente" class="java.lang.String"/>
@@ -233,6 +233,26 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Concepto}]]></textFieldExpression>
 			</textField>
+			<rectangle>
+				<reportElement x="448" y="53" width="88" height="20" uuid="a2515af5-e0fb-4718-95e0-10313caa41c5"/>
+			</rectangle>
+			<textField>
+				<reportElement style="Detail" x="455" y="55" width="50" height="15" uuid="5eeea3d0-8909-4b19-8bfd-0b757e09fecb"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format("%05d",Integer.parseInt($P{folio}))]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="393" y="53" width="55" height="20" uuid="90e6a8f8-acaa-46cb-a507-07ddcd6023b1"/>
+			</rectangle>
+			<staticText>
+				<reportElement style="Column header" x="397" y="55" width="69" height="15" uuid="c221a4b5-4cea-4009-8648-8079804fb84b"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Folio:]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<columnFooter>

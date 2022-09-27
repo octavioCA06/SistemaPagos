@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dd8022fc-b3dc-49d8-b99f-80956f3f6bc5">
-	<property name="ireport.zoom" value="0.75"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="2.3538212825407516"/>
+	<property name="ireport.x" value="29"/>
+	<property name="ireport.y" value="270"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
 	<style name="Detail" fontName="Arial" fontSize="12"/>
-	<parameter name="nombreingresado2" class="java.lang.String">
+	<parameter name="folio" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT * FROM inpro WHERE Paciente = $P{nombreingresado2}]]>
+		<![CDATA[SELECT * FROM inpro WHERE Folio = $P{folio}]]>
 	</queryString>
 	<field name="Alumno" class="java.lang.String"/>
 	<field name="Paciente" class="java.lang.String"/>
@@ -199,6 +199,26 @@
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Concepto}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="449" y="56" width="88" height="20" uuid="7ba3a5cd-5385-4125-8497-5ab6a64ca0a5"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="394" y="56" width="55" height="20" uuid="abcb2b05-8ca9-484d-a96f-9948b4e307d9"/>
+			</rectangle>
+			<staticText>
+				<reportElement style="Column header" x="398" y="58" width="69" height="15" uuid="95469579-e83c-4163-9aab-18fb0a3b187c"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Folio:]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="453" y="58" width="48" height="15" uuid="9075812d-96bd-49ab-981d-bc5edf4b629c"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format("%05d",Integer.parseInt($P{folio}))]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
