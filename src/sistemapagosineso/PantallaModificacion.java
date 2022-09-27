@@ -5,11 +5,14 @@
  */
 package sistemapagosineso;
 
+import java.awt.Component;
 import java.sql.*;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.*;
@@ -19,7 +22,7 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author camif
  */
-public class PantallaRegistro extends javax.swing.JInternalFrame {
+public class PantallaModificacion extends javax.swing.JInternalFrame {
     int ax=1;
     double bx=1.0;
     String cx="adasdasdasdasdas";
@@ -29,11 +32,19 @@ public class PantallaRegistro extends javax.swing.JInternalFrame {
     /**
      * Creates new form PantallaRegistro
      */
-    public PantallaRegistro() {
+    public PantallaModificacion(String folio) {
         initComponents();
+        try {
+            // TODO add your handling code here:
+            
+            Llenar(folio);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultaPagos.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         
-        Vaciar();  
+        //Vaciar();  
         
         
     }
@@ -74,6 +85,11 @@ public class PantallaRegistro extends javax.swing.JInternalFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        taObservaciones = new javax.swing.JTextArea();
+        jLabel16 = new javax.swing.JLabel();
+        tfFolio = new javax.swing.JTextField();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(387, 278, -1, -1));
@@ -98,7 +114,7 @@ public class PantallaRegistro extends javax.swing.JInternalFrame {
 
         jButton1.setBackground(new java.awt.Color(218, 236, 243));
         jButton1.setFont(new java.awt.Font("Dubai Medium", 0, 19)); // NOI18N
-        jButton1.setText("Registrar ");
+        jButton1.setText("Modificar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -177,7 +193,7 @@ public class PantallaRegistro extends javax.swing.JInternalFrame {
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 1410, 40));
 
         jLabel2.setFont(new java.awt.Font("Dubai Light", 1, 25)); // NOI18N
-        jLabel2.setText("Registro de Pagos");
+        jLabel2.setText("Modificación de pago");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 70, 230, 40));
 
         jcbGrupo.setBackground(new java.awt.Color(81, 154, 183));
@@ -200,6 +216,28 @@ public class PantallaRegistro extends javax.swing.JInternalFrame {
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/MUELA.png"))); // NOI18N
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 600, 990, 60));
+
+        jLabel8.setFont(new java.awt.Font("Dubai Light", 1, 17)); // NOI18N
+        jLabel8.setText("Observaciones:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 360, -1, 20));
+
+        taObservaciones.setColumns(20);
+        taObservaciones.setRows(5);
+        jScrollPane2.setViewportView(taObservaciones);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 390, 320, -1));
+
+        jLabel16.setFont(new java.awt.Font("Dubai Light", 1, 20)); // NOI18N
+        jLabel16.setText("Folio:");
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
+
+        tfFolio.setEditable(false);
+        tfFolio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfFolioActionPerformed(evt);
+            }
+        });
+        jPanel1.add(tfFolio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 80, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1570, 970));
 
@@ -236,13 +274,23 @@ public class PantallaRegistro extends javax.swing.JInternalFrame {
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost/sistemapagos","root","");
             Statement stmt = con.createStatement();
-            stmt.executeUpdate("INSERT INTO ineso VALUES('"+tfAlumno.getText()+"','"+tfPaciente.getText()+"','"+jcbGrupo.getSelectedItem()+"','"+jcbCiclo.getSelectedItem()+"','"+fecha+"','"+concepto+"','"+jcbTratamiento.getSelectedItem()+"')");
+            stmt.executeUpdate("UPDATE `ineso` SET `Alumno` = '"+ tfAlumno.getText() +"' , "
+                                                + "`Paciente` = '"+ tfPaciente.getText() +"', "
+                                                + "`Grupo` = '"+ jcbGrupo.getSelectedItem() +"', "
+                                                + "`Ciclo` = '"+ jcbCiclo.getSelectedItem() +"', "
+                                                + "`Fecha` = '"+ fecha +"', "
+                                                + "`Concepto` = '"+ concepto +"', "
+                                                + "`Tratamiento` = '"+ jcbTratamiento.getSelectedItem() +"', "
+                                                + "`Observaciones` = '"+ taObservaciones.getText() +"' "
+                    + " WHERE `Folio` = "+ Integer.parseInt(tfFolio.getText()) +" ");
+            JOptionPane.showMessageDialog(null,"Se ha modificado el registro exitosamente");
+            this.setVisible(false);
         } catch (SQLException ex) {
-            Logger.getLogger(PantallaRegistro.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PantallaModificacion.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se puede conectar a la base de datos");
         }
         
-        JOptionPane.showMessageDialog(null,"El pago se ha registrado exitosamente");
+        
         
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -261,18 +309,60 @@ public class PantallaRegistro extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_rbclinica3ActionPerformed
 
-private void Vaciar() {
+    private void tfFolioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfFolioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfFolioActionPerformed
+
+    private void Llenar(String folio) throws SQLException {
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/sistemapagos","root","");
+        Statement stmt = con.createStatement();
+        // ResultSet rs = stmt.executeQuery("SELECT * FROM registro WHERE Alumno LIKE '"+tfAlumno1.getText().toString()+"%'");
+        ResultSet rs = stmt.executeQuery("SELECT * FROM ineso WHERE Folio = " + folio);
+        //ResultSet rs = stmt.executeQuery("SELECT * FROM ineso WHERE Paciente LIKE '%"+tfPaciente1.getText().toString()+"%'");
+        if(rs.next()) { //se valida si hay resultados
+            do {
+                //String[] fila = {rs.getString(1),rs.getString(2),rs.getString(5),rs.getString(6)};
+                String[] fila = {String.format("%05d",Integer.parseInt(rs.getString("Folio"))), 
+                                rs.getString("Alumno"), 
+                                rs.getString("Paciente"), 
+                                rs.getString("Grupo"),
+                                rs.getString("Ciclo"),
+                                rs.getString("Fecha"), 
+                                rs.getString("Concepto"),
+                                rs.getString("Tratamiento"),
+                                rs.getString("Observaciones")};
+                tfFolio.setText(folio);
+                tfAlumno.setText(fila[1]);
+                tfPaciente.setText(fila[2]);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    java.util.Date date = (java.util.Date) sdf.parse(fila[5]);
+                    sdf.applyPattern("dd/MM/yyyy");
+                    jDateFecha.setDate(date);
+                } catch (ParseException ex) {
+                    Logger.getLogger(PantallaModificacion.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                taObservaciones.setText(fila[8]);
+                jcbCiclo.getModel().setSelectedItem(fila[4]);
+                jcbGrupo.getModel().setSelectedItem(fila[3]);
+                jcbTratamiento.getModel().setSelectedItem(fila[7]);
+                if(fila[6].equals("Clínica $300")){
+                    rbclinica3.setSelected(true);
+                    rbclinica2.setSelected(false);
+                }else{
+                    rbclinica3.setSelected(false);
+                    rbclinica2.setSelected(true);
+                }
+            } while(rs.next()); //repita mientras existan más datos
+        }         
+    }
+
+    private void Vaciar() {
         tfAlumno.setText("");
         tfPaciente.setText("");
-        jDateFecha.setCalendar(null);
-     
-        
-        
-        
-        
-        
-        
+        jDateFecha.setCalendar(null);  
     }
+    
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -286,22 +376,27 @@ private void Vaciar() {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jbnVaciar;
     private javax.swing.JComboBox<String> jcbCiclo;
     private javax.swing.JComboBox<String> jcbGrupo;
     private javax.swing.JComboBox<String> jcbTratamiento;
     private javax.swing.JRadioButton rbclinica2;
     private javax.swing.JRadioButton rbclinica3;
+    private javax.swing.JTextArea taObservaciones;
     private javax.swing.JTextField tfAlumno;
+    private javax.swing.JTextField tfFolio;
     private javax.swing.JTextField tfPaciente;
     // End of variables declaration//GEN-END:variables
 }

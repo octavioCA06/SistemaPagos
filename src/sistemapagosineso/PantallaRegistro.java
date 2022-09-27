@@ -74,6 +74,9 @@ public class PantallaRegistro extends javax.swing.JInternalFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        taObservaciones = new javax.swing.JTextArea();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(387, 278, -1, -1));
@@ -201,6 +204,16 @@ public class PantallaRegistro extends javax.swing.JInternalFrame {
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/MUELA.png"))); // NOI18N
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 600, 990, 60));
 
+        jLabel8.setFont(new java.awt.Font("Dubai Light", 1, 17)); // NOI18N
+        jLabel8.setText("Observaciones:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 360, -1, 20));
+
+        taObservaciones.setColumns(20);
+        taObservaciones.setRows(5);
+        jScrollPane2.setViewportView(taObservaciones);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 390, 320, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1570, 970));
 
         pack();
@@ -236,13 +249,22 @@ public class PantallaRegistro extends javax.swing.JInternalFrame {
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost/sistemapagos","root","");
             Statement stmt = con.createStatement();
-            stmt.executeUpdate("INSERT INTO ineso VALUES('"+tfAlumno.getText()+"','"+tfPaciente.getText()+"','"+jcbGrupo.getSelectedItem()+"','"+jcbCiclo.getSelectedItem()+"','"+fecha+"','"+concepto+"','"+jcbTratamiento.getSelectedItem()+"')");
+            stmt.executeUpdate("INSERT INTO `ineso` (`Alumno`, `Paciente`, `Grupo`, `Ciclo`, `Fecha`, `Concepto`, `Tratamiento`, `Observaciones`) "
+                    + " VALUES('"+tfAlumno.getText()+"','"+
+                    tfPaciente.getText()+"','"+
+                    jcbGrupo.getSelectedItem()+"','"+
+                    jcbCiclo.getSelectedItem()+"','"+
+                    fecha+"','"+
+                    concepto+"','"+
+                    jcbTratamiento.getSelectedItem()+"','"+
+                    taObservaciones.getText()+"')");
+            JOptionPane.showMessageDialog(null,"El pago se ha registrado exitosamente");
         } catch (SQLException ex) {
             Logger.getLogger(PantallaRegistro.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se puede conectar a la base de datos");
         }
         
-        JOptionPane.showMessageDialog(null,"El pago se ha registrado exitosamente");
+        
         
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -264,14 +286,7 @@ public class PantallaRegistro extends javax.swing.JInternalFrame {
 private void Vaciar() {
         tfAlumno.setText("");
         tfPaciente.setText("");
-        jDateFecha.setCalendar(null);
-     
-        
-        
-        
-        
-        
-        
+        jDateFecha.setCalendar(null);  
     }
     
     
@@ -292,15 +307,18 @@ private void Vaciar() {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jbnVaciar;
     private javax.swing.JComboBox<String> jcbCiclo;
     private javax.swing.JComboBox<String> jcbGrupo;
     private javax.swing.JComboBox<String> jcbTratamiento;
     private javax.swing.JRadioButton rbclinica2;
     private javax.swing.JRadioButton rbclinica3;
+    private javax.swing.JTextArea taObservaciones;
     private javax.swing.JTextField tfAlumno;
     private javax.swing.JTextField tfPaciente;
     // End of variables declaration//GEN-END:variables

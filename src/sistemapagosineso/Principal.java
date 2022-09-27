@@ -19,6 +19,7 @@ public class Principal extends javax.swing.JFrame {
     ConsultaPagos consultapagos;
     PantallaRegistro_1 pantallaregistro2;
     ConsultaPagos1 consultapagos2;
+    PantallaModificacion modif;
     
     public Principal() {
         initComponents();
@@ -34,9 +35,7 @@ public class Principal extends javax.swing.JFrame {
         add(pantallaregistro2);
         add(consultapagos2);
         
-        
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -200,6 +199,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;

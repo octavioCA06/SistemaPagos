@@ -6,6 +6,7 @@
 package sistemapagosineso;
 import java.util.logging.Logger;
 import java.awt.Cursor;
+import java.awt.HeadlessException;
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -40,8 +41,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
+import javax.swing.JFrame;
 
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
@@ -108,6 +112,10 @@ public class ConsultaPagos1 extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jDateFilter1 = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        tfFolioSeleccionado = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -137,12 +145,17 @@ public class ConsultaPagos1 extends javax.swing.JInternalFrame {
                 "Folio", "Nombre del Alumno ", "Nombre del Paciente", "Último Mes Pagado", "Concepto"
             }
         ));
+        tbPagos2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbPagos2MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbPagos2);
         if (tbPagos2.getColumnModel().getColumnCount() > 0) {
             tbPagos2.getColumnModel().getColumn(0).setResizable(false);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 1030, 300));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 890, 300));
 
         jButton2.setBackground(new java.awt.Color(218, 236, 243));
         jButton2.setFont(new java.awt.Font("Dubai Light", 1, 19)); // NOI18N
@@ -194,6 +207,34 @@ public class ConsultaPagos1 extends javax.swing.JInternalFrame {
         jLabel5.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         jLabel5.setText("Fecha:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 140, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Dubai Light", 1, 20)); // NOI18N
+        jLabel6.setText("Folio seleccionado:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 220, -1, -1));
+
+        tfFolioSeleccionado.setEditable(false);
+        tfFolioSeleccionado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfFolioSeleccionadoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(tfFolioSeleccionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 250, 90, -1));
+
+        jButton3.setText("Modificar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 280, -1, -1));
+
+        jButton4.setText("Eliminar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 320, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -316,6 +357,56 @@ if(rs.next()) { //se valida si hay resultados
             Logger.getLogger(ConsultaPagos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tfFolioSeleccionadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfFolioSeleccionadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfFolioSeleccionadoActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if(tbPagos2.getSelectedRow() > -1){
+            JFrame frame = new JFrame();
+            PantallaModificacion_1 modif = new PantallaModificacion_1(tfFolioSeleccionado.getText());
+            frame.add(modif);
+            frame.setSize(1000, 800);
+            frame.setResizable(true);
+            modif.setVisible(true);
+            frame.setVisible(true);
+            frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            //modif.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(null,"Seleccione un registro en la lista para continuar.");
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void tbPagos2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPagos2MouseClicked
+        // TODO add your handling code here:
+        tfFolioSeleccionado.setText((String) tbPagos2.getValueAt(tbPagos2.getSelectedRow(),0));
+    }//GEN-LAST:event_tbPagos2MouseClicked
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        if(tbPagos2.getSelectedRow() > -1){
+            int option = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el registro seleccionado?\nEsta acción no se puede deshacer.", 
+                                                       "Confirmar eliminación", 
+                                                       YES_NO_OPTION);
+            if(option == 0){
+                try {
+                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost/sistemapagos","root","");
+                    Statement stmt = con.createStatement();
+                    stmt.executeUpdate("DELETE FROM `inpro` WHERE `Folio` = " + Integer.parseInt(tfFolioSeleccionado.getText()));
+                    DefaultTableModel modelo = (DefaultTableModel)tbPagos2.getModel();
+                    modelo.removeRow(tbPagos2.getSelectedRow());
+                    JOptionPane.showMessageDialog(null,"Registro con folio "+ tfFolioSeleccionado.getText() +" eliminado");
+                } catch (HeadlessException | NumberFormatException | SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                    Logger.getLogger(ConsultaPagos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            tfFolioSeleccionado.setText("");
+        }else{
+            JOptionPane.showMessageDialog(null,"Seleccione un registro en la lista para continuar.");
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
     
     //Clase renombrada "MostrarReporte();
     public void MostrarRecibo() throws Exception
@@ -387,6 +478,8 @@ if(rs.next()) { //se valida si hay resultados
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private com.toedter.calendar.JDateChooser jDateFilter1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
@@ -396,11 +489,13 @@ if(rs.next()) { //se valida si hay resultados
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbPagos2;
+    private javax.swing.JTextField tfFolioSeleccionado;
     private javax.swing.JTextField tfPaciente2;
     // End of variables declaration//GEN-END:variables
 

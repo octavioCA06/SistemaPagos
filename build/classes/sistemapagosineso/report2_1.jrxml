@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dd8022fc-b3dc-49d8-b99f-80956f3f6bc5">
-	<property name="ireport.zoom" value="2.3538212825407516"/>
-	<property name="ireport.x" value="29"/>
-	<property name="ireport.y" value="270"/>
+	<property name="ireport.zoom" value="1.768460768250001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="238"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -13,12 +13,30 @@
 	<queryString>
 		<![CDATA[SELECT * FROM inpro WHERE Folio = $P{folio}]]>
 	</queryString>
-	<field name="Alumno" class="java.lang.String"/>
-	<field name="Paciente" class="java.lang.String"/>
-	<field name="Grupo" class="java.lang.String"/>
-	<field name="Ciclo" class="java.lang.String"/>
-	<field name="Fecha" class="java.sql.Date"/>
-	<field name="Concepto" class="java.lang.String"/>
+	<field name="Folio" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Alumno" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Paciente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Grupo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Ciclo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Fecha" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Concepto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Observaciones" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -66,6 +84,9 @@
 	</columnHeader>
 	<detail>
 		<band height="398" splitType="Stretch">
+			<rectangle>
+				<reportElement x="19" y="254" width="518" height="20" uuid="126d2c6d-8376-4c8c-af5c-97b35e484ff8"/>
+			</rectangle>
 			<rectangle>
 				<reportElement x="278" y="96" width="259" height="34" uuid="8da4ab57-d87f-4939-9184-8819a59e534b"/>
 			</rectangle>
@@ -219,6 +240,23 @@
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format("%05d",Integer.parseInt($P{folio}))]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="23" y="257" width="103" height="15" uuid="1fd56be7-01d0-4d7d-9904-891bce5acbec"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Observaciones:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="19" y="274" width="518" height="34" uuid="429d87c9-9131-48ff-8d5a-624d7e6248dc"/>
+			</rectangle>
+			<textField>
+				<reportElement style="Detail" x="23" y="279" width="170" height="15" uuid="978485da-c4cc-4067-99ce-fdeff4e4119a"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Observaciones}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

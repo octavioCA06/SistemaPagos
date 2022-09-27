@@ -35,7 +35,8 @@ CREATE TABLE `ineso` (
   `Ciclo` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Fecha` date NOT NULL,
   `Concepto` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `Tratamiento` varchar(50) COLLATE utf8_spanish2_ci NOT NULL
+  `Tratamiento` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `Observaciones` varchar(250)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
@@ -73,7 +74,8 @@ CREATE TABLE `inpro` (
   `Grupo` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Ciclo` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Fecha` date NOT NULL,
-  `Concepto` varchar(50) COLLATE utf8_spanish2_ci NOT NULL
+  `Concepto` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `Observaciones` varchar(250)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --

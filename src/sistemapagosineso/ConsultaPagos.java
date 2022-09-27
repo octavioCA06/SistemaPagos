@@ -6,6 +6,7 @@
 package sistemapagosineso;
 import java.util.logging.Logger;
 import java.awt.Cursor;
+import java.awt.HeadlessException;
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -42,8 +43,10 @@ import java.util.Map;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.SimpleFormatter;
+import javax.swing.JFrame;
 
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
@@ -70,13 +73,15 @@ public class ConsultaPagos extends javax.swing.JInternalFrame {
     
     
     static Logger log= Logger.getLogger(ConsultaPagos.class.getName());
+    Connection con;
+ 
+    
     
      // Logger.getLogger(ConsultaPagos.class.getName()).log(Level.SEVERE, null, ex);
     
     public ConsultaPagos() {
         initComponents();
         //jDateFilter.setDate(new java.util.Date());
-     
         
          try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -116,6 +121,10 @@ public class ConsultaPagos extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jcbTratamientoFilter = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        tfFolioSeleccionado = new javax.swing.JTextField();
+        btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMaximumSize(new java.awt.Dimension(6, 6));
@@ -147,6 +156,11 @@ public class ConsultaPagos extends javax.swing.JInternalFrame {
                 "Folio", "Nombre del Alumno ", "Nombre del Paciente", "Último Mes Pagado", "Concepto"
             }
         ));
+        tbPagos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbPagosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbPagos);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 1030, 300));
@@ -198,7 +212,7 @@ public class ConsultaPagos extends javax.swing.JInternalFrame {
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 540, -1, 40));
         jPanel1.add(jDateFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 130, 250, -1));
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Dubai Light", 1, 20)); // NOI18N
         jLabel5.setText("Fecha:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 100, -1, 30));
 
@@ -207,6 +221,34 @@ public class ConsultaPagos extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Tratamiento:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 530, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Dubai Light", 1, 20)); // NOI18N
+        jLabel8.setText("Folio seleccionado:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 210, -1, -1));
+
+        tfFolioSeleccionado.setEditable(false);
+        tfFolioSeleccionado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfFolioSeleccionadoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(tfFolioSeleccionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 250, 80, -1));
+
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 280, -1, -1));
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 310, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -251,59 +293,7 @@ i-=1;
 
     private void tfPaciente1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPaciente1KeyReleased
         // TODO add your handling code here:
-        
-        String fecha= "";
-        
-        if (jDateFilter.getCalendar() != null){
-            int year = jDateFilter.getCalendar().get(Calendar.YEAR);
-            int mes = jDateFilter.getCalendar().get(Calendar.MONTH) + 1;
-            int dia = jDateFilter.getCalendar().get(Calendar.DAY_OF_MONTH);
-            
-            String Smes = ((mes < 10) ? "0"+Integer.toString(mes) : Integer.toString(mes)); 
-
-            fecha=""+year+"-"+Smes+"-"+dia;
-        }
-         
-        //String x=tfPaciente1.getText().toString();
-        //System.out.println(x + "; " + fecha);
-        
-
-        
-        
-      
-        try {
-            // TODO add your handling code here:
-            DefaultTableModel modelo = (DefaultTableModel)tbPagos.getModel();
-            
-            limpiartabla(modelo);
-            
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/sistemapagos","root","");
-            Statement stmt = con.createStatement();
-          // ResultSet rs = stmt.executeQuery("SELECT * FROM registro WHERE Alumno LIKE '"+tfAlumno1.getText().toString()+"%'");
-         ResultSet rs = stmt.executeQuery("SELECT * FROM ineso WHERE Paciente LIKE '%"+tfPaciente1.getText().toString()+"%' AND Fecha LIKE '%"+ fecha +"%'");
-         //ResultSet rs = stmt.executeQuery("SELECT * FROM ineso WHERE Paciente LIKE '%"+tfPaciente1.getText().toString()+"%'");
-           
-           
-           
-            
-if(rs.next()) { //se valida si hay resultados
-  do {
-    	//String[] fila = {rs.getString(1),rs.getString(2),rs.getString(5),rs.getString(6)};
-        String[] fila = {String.format("%05d",Integer.parseInt(rs.getString("Folio"))), 
-                        rs.getString("Alumno"), 
-                        rs.getString("Paciente"), 
-                        rs.getString("Fecha"), 
-                        rs.getString("Concepto")};
-    	modelo.addRow(fila);
-  } while(rs.next()); //repita mientras existan más datos
-}
-        } catch (SQLException ex) {
-            Logger.getLogger(ConsultaPagos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        
-        
+        actualizar();
         
     }//GEN-LAST:event_tfPaciente1KeyReleased
 
@@ -359,6 +349,57 @@ if(rs.next()) { //se valida si hay resultados
             Logger.getLogger(ConsultaPagos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        if(tbPagos.getSelectedRow() > -1){
+            JFrame frame = new JFrame();
+            PantallaModificacion modif = new PantallaModificacion(tfFolioSeleccionado.getText());
+            frame.add(modif);
+            frame.setSize(1000, 800);
+            frame.setResizable(true);
+            modif.setVisible(true);
+            frame.setVisible(true);
+            frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            actualizar();
+            //modif.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(null,"Seleccione un registro en la lista para continuar.");
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        if(tbPagos.getSelectedRow() > -1){
+            int option = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el registro seleccionado?\nEsta acción no se puede deshacer.", 
+                                                       "Confirmar eliminación", 
+                                                       YES_NO_OPTION);
+            if(option == 0){
+                try {
+                    con = DriverManager.getConnection("jdbc:mysql://localhost/sistemapagos","root","");
+                    Statement stmt = con.createStatement();
+                    stmt.executeUpdate("DELETE FROM `ineso` WHERE `Folio` = " + Integer.parseInt(tfFolioSeleccionado.getText()));
+                    DefaultTableModel modelo = (DefaultTableModel)tbPagos.getModel();
+                    modelo.removeRow(tbPagos.getSelectedRow());
+                    JOptionPane.showMessageDialog(null,"Registro con folio "+ tfFolioSeleccionado.getText() +" eliminado");
+                    actualizar();
+                } catch (HeadlessException | NumberFormatException | SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                    Logger.getLogger(ConsultaPagos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            tfFolioSeleccionado.setText("");
+            actualizar();
+        }else{
+            JOptionPane.showMessageDialog(null,"Seleccione un registro en la lista para continuar.");
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void tfFolioSeleccionadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfFolioSeleccionadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfFolioSeleccionadoActionPerformed
+
+    private void tbPagosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPagosMouseClicked
+        tfFolioSeleccionado.setText((String) tbPagos.getValueAt(tbPagos.getSelectedRow(),0));
+    }//GEN-LAST:event_tbPagosMouseClicked
     
     //Clase renombrada "Mostrar Reporte()"
     public void MostrarRecibo() throws Exception
@@ -430,10 +471,59 @@ if(rs.next()) { //se valida si hay resultados
         jv.setVisible(true);
     }
     
+    public void actualizar(){
+        String fecha= "";
+        
+        if (jDateFilter.getCalendar() != null){
+            int year = jDateFilter.getCalendar().get(Calendar.YEAR);
+            int mes = jDateFilter.getCalendar().get(Calendar.MONTH) + 1;
+            int dia = jDateFilter.getCalendar().get(Calendar.DAY_OF_MONTH);
+            
+            String Smes = ((mes < 10) ? "0"+Integer.toString(mes) : Integer.toString(mes)); 
+
+            fecha=""+year+"-"+Smes+"-"+dia;
+        }
+         
+        //String x=tfPaciente1.getText().toString();
+        //System.out.println(x + "; " + fecha);
+        
+
+        
+        
+      
+        try {
+            // TODO add your handling code here:
+            DefaultTableModel modelo = (DefaultTableModel)tbPagos.getModel();
+            
+            limpiartabla(modelo);
+            
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/sistemapagos","root","");
+            Statement stmt = con.createStatement();
+            // ResultSet rs = stmt.executeQuery("SELECT * FROM registro WHERE Alumno LIKE '"+tfAlumno1.getText().toString()+"%'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM ineso WHERE Paciente LIKE '%"+tfPaciente1.getText().toString()+"%' AND Fecha LIKE '%"+ fecha +"%'");
+            //ResultSet rs = stmt.executeQuery("SELECT * FROM ineso WHERE Paciente LIKE '%"+tfPaciente1.getText().toString()+"%'");
+            if(rs.next()) { //se valida si hay resultados
+                do {
+                    //String[] fila = {rs.getString(1),rs.getString(2),rs.getString(5),rs.getString(6)};
+                    String[] fila = {String.format("%05d",Integer.parseInt(rs.getString("Folio"))), 
+                                    rs.getString("Alumno"), 
+                                    rs.getString("Paciente"), 
+                                    rs.getString("Fecha"), 
+                                    rs.getString("Concepto")};
+                    modelo.addRow(fila);
+                } while(rs.next()); //repita mientras existan más datos
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultaPagos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private com.toedter.calendar.JDateChooser jDateFilter;
@@ -447,11 +537,13 @@ if(rs.next()) { //se valida si hay resultados
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> jcbTratamientoFilter;
     private javax.swing.JTable tbPagos;
+    private javax.swing.JTextField tfFolioSeleccionado;
     private javax.swing.JTextField tfPaciente1;
     // End of variables declaration//GEN-END:variables
 
