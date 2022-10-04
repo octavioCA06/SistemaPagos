@@ -23,16 +23,18 @@ public class PantallaRegistro_1 extends javax.swing.JInternalFrame {
     int ax=1;
     double bx=1.0;
     String cx="adasdasdasdasdas";
+    String idUser;
     
     Connection con;
     
     /**
      * Creates new form PantallaRegistro
      */
-    public PantallaRegistro_1() {
+    public PantallaRegistro_1(String idUsuario) {
         initComponents();
+        idUser = idUsuario;
         
-        
+        encontrarUsuario();
         Vaciar();  
         
         
@@ -76,6 +78,8 @@ public class PantallaRegistro_1 extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         taObservaciones2 = new javax.swing.JTextArea();
+        jLabel15 = new javax.swing.JLabel();
+        tfUsuario = new javax.swing.JTextField();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(387, 278, -1, -1));
@@ -199,6 +203,17 @@ public class PantallaRegistro_1 extends javax.swing.JInternalFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 390, 320, -1));
 
+        jLabel15.setText("Usuario activo:");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, -1, -1));
+
+        tfUsuario.setEditable(false);
+        tfUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfUsuarioActionPerformed(evt);
+            }
+        });
+        jPanel1.add(tfUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 70, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1570, 970));
 
         pack();
@@ -234,14 +249,16 @@ public class PantallaRegistro_1 extends javax.swing.JInternalFrame {
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost/sistemapagos","root","");
             Statement stmt = con.createStatement();
-            stmt.executeUpdate("INSERT INTO inpro ('Alumno', 'Paciente', 'Grupo', 'Ciclo', 'Fecha', 'Concepto', 'Observaciones') "
+            stmt.executeUpdate("INSERT INTO inpro (`Alumno`, `Paciente`, `Grupo`, `Ciclo`, `Fecha`, `Concepto`, `Observaciones`, `usuario_creacion`, `usuario_modificacion`) "
                     + " VALUES('"+tfAlumno2.getText()+"','"+
                     tfPaciente2.getText()+"','"+
                     jcbGrupo2.getSelectedItem()+"','"+
                     jcbCiclo2.getSelectedItem()+"','"+
                     fecha+"','"+
                     concepto+"','"+
-                    taObservaciones2.getText() +"')");
+                    taObservaciones2.getText()+"','"+
+                    idUser+"','"+
+                    idUser+"')");
             JOptionPane.showMessageDialog(null,"El pago se ha registrado exitosamente");
         } catch (SQLException ex) {
             Logger.getLogger(PantallaRegistro.class.getName()).log(Level.SEVERE, null, ex);
@@ -263,16 +280,33 @@ public class PantallaRegistro_1 extends javax.swing.JInternalFrame {
         Vaciar();
     }//GEN-LAST:event_Vaciar2ActionPerformed
 
-private void Vaciar() {
+    private void tfUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfUsuarioActionPerformed
+
+
+    private void encontrarUsuario(){
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost/sistemapagos","root","");
+            Statement stm = con.createStatement();
+            String query = "SELECT nombre FROM usuarios WHERE id_usuario = '"+ idUser +"'";
+            //System.out.println(query);
+            ResultSet rs = stm.executeQuery(query);
+            if(rs.next()){
+                tfUsuario.setText(rs.getString("nombre"));
+            }else{
+                tfUsuario.setText("...");
+            }
+        } catch (Exception e) {
+            Logger.getLogger(ConsultaPagos.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println("Error: "+e);
+        }
+    }
+    
+    private void Vaciar() {
         tfAlumno2.setText("");
         tfPaciente2.setText("");
         jDateFecha2.setCalendar(null);
-     
-        
-        
-        
-        
-        
         
     }
     
@@ -289,6 +323,7 @@ private void Vaciar() {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -307,5 +342,6 @@ private void Vaciar() {
     private javax.swing.JTextArea taObservaciones2;
     private javax.swing.JTextField tfAlumno2;
     private javax.swing.JTextField tfPaciente2;
+    private javax.swing.JTextField tfUsuario;
     // End of variables declaration//GEN-END:variables
 }

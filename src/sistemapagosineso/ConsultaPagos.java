@@ -74,13 +74,14 @@ public class ConsultaPagos extends javax.swing.JInternalFrame {
     
     static Logger log= Logger.getLogger(ConsultaPagos.class.getName());
     Connection con;
- 
+    String idUser;
     
     
      // Logger.getLogger(ConsultaPagos.class.getName()).log(Level.SEVERE, null, ex);
     
-    public ConsultaPagos() {
+    public ConsultaPagos(String idUsuario) {
         initComponents();
+        idUser = idUsuario;
         //jDateFilter.setDate(new java.util.Date());
         
          try {
@@ -353,7 +354,7 @@ i-=1;
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         if(tbPagos.getSelectedRow() > -1){
             JFrame frame = new JFrame();
-            PantallaModificacion modif = new PantallaModificacion(tfFolioSeleccionado.getText());
+            PantallaModificacion modif = new PantallaModificacion(tfFolioSeleccionado.getText(), idUser);
             frame.add(modif);
             frame.setSize(1000, 800);
             frame.setResizable(true);

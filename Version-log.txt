@@ -18,3 +18,20 @@ V1.0.2 (22/09/2022) Octavio Colin Antonio (octavio_co.a@hotmail.com)
   CORRECCION DE ERRORES:
 
 ------------------------------------------------------------------------------------------------------------
+V1.0.3 (27/09/2022) Octavio Colin Antonio (octavio_co.a@hotmail.com)
+  CAMBIOS:
+    -Se agregó el folio de registros
+    -Se agregó el campo de comentarios.
+    -Se agregó el número consecutivo en los reportes.
+
+  CORRECCION DE ERRORES:
+
+------------------------------------------------------------------------------------------------------------
+V1.1.0 (04/10/2022) Octavio Colin Antonio (octavio_co.a@hotmail.com)
+  CAMBIOS:
+    -Se creó el formulario de acceso al sistema.
+    -Se agregaron campos de auditoría a los registros.
+
+  CORRECCION DE ERRORES:
+
+------------------------------------------------------------------------------------------------------------

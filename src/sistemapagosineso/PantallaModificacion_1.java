@@ -27,13 +27,15 @@ public class PantallaModificacion_1 extends javax.swing.JInternalFrame {
     String cx="adasdasdasdasdas";
     
     Connection con;
+    String idUser;
     
     /**
      * Creates new form PantallaRegistro
      */
-    public PantallaModificacion_1(String folio) {
+    public PantallaModificacion_1(String folio, String idUsuario) {
         initComponents();
         
+        idUser = idUsuario;
         try {  
             Llenar(folio);
         } catch (SQLException ex) {
@@ -254,7 +256,8 @@ public class PantallaModificacion_1 extends javax.swing.JInternalFrame {
                                                 + "`Ciclo` = '"+ jcbCiclo2.getSelectedItem() +"', "
                                                 + "`Fecha` = '"+ fecha +"', "
                                                 + "`Concepto` = '"+ concepto +"', "
-                                                + "`Observaciones` = '"+ taObservaciones2.getText() +"' "
+                                                + "`Observaciones` = '"+ taObservaciones2.getText() +"', "
+                                                + "`usuario_modificacion` = '"+ idUser +"' "
                     + " WHERE `Folio` = "+ Integer.parseInt(tfFolio.getText()) +" ");
             JOptionPane.showMessageDialog(null,"Se ha modificado el registro exitosamente");
             this.setVisible(false);

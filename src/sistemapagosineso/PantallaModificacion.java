@@ -28,12 +28,14 @@ public class PantallaModificacion extends javax.swing.JInternalFrame {
     String cx="adasdasdasdasdas";
     
     Connection con;
+    String idUser;
     
     /**
      * Creates new form PantallaRegistro
      */
-    public PantallaModificacion(String folio) {
+    public PantallaModificacion(String folio, String idUsuario) {
         initComponents();
+        idUser = idUsuario;
         try {
             // TODO add your handling code here:
             
@@ -281,7 +283,8 @@ public class PantallaModificacion extends javax.swing.JInternalFrame {
                                                 + "`Fecha` = '"+ fecha +"', "
                                                 + "`Concepto` = '"+ concepto +"', "
                                                 + "`Tratamiento` = '"+ jcbTratamiento.getSelectedItem() +"', "
-                                                + "`Observaciones` = '"+ taObservaciones.getText() +"' "
+                                                + "`Observaciones` = '"+ taObservaciones.getText() +"', "
+                                                + "`usuario_modificacion` = '"+ idUser +"' "
                     + " WHERE `Folio` = "+ Integer.parseInt(tfFolio.getText()) +" ");
             JOptionPane.showMessageDialog(null,"Se ha modificado el registro exitosamente");
             this.setVisible(false);

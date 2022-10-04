@@ -19,16 +19,17 @@ public class Principal extends javax.swing.JFrame {
     ConsultaPagos consultapagos;
     PantallaRegistro_1 pantallaregistro2;
     ConsultaPagos1 consultapagos2;
-    PantallaModificacion modif;
+    static String idUser;
     
-    public Principal() {
+    public Principal(String idUsuario) {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
-       
-        pantallaregistro = new PantallaRegistro();
-        consultapagos = new ConsultaPagos();
-        pantallaregistro2 = new PantallaRegistro_1();
-        consultapagos2 = new ConsultaPagos1();
+        
+        idUser = idUsuario;
+        pantallaregistro = new PantallaRegistro(idUser);
+        consultapagos = new ConsultaPagos(idUser);
+        pantallaregistro2 = new PantallaRegistro_1(idUser);
+        consultapagos2 = new ConsultaPagos1(idUser);
 
         add(pantallaregistro);
         add(consultapagos);
@@ -195,10 +196,11 @@ public class Principal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Principal().setVisible(true);
+                new Principal(idUser).setVisible(true);
             }
         });
     }
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

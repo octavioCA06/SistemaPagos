@@ -23,16 +23,18 @@ public class PantallaRegistro extends javax.swing.JInternalFrame {
     int ax=1;
     double bx=1.0;
     String cx="adasdasdasdasdas";
+    String idUser;
     
     Connection con;
     
     /**
      * Creates new form PantallaRegistro
      */
-    public PantallaRegistro() {
+    public PantallaRegistro(String idUsuario) {
         initComponents();
+        idUser = idUsuario;
         
-        
+        encontrarUsuario();
         Vaciar();  
         
         
@@ -77,6 +79,8 @@ public class PantallaRegistro extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         taObservaciones = new javax.swing.JTextArea();
+        jLabel16 = new javax.swing.JLabel();
+        tfUsuario = new javax.swing.JTextField();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(387, 278, -1, -1));
@@ -214,6 +218,12 @@ public class PantallaRegistro extends javax.swing.JInternalFrame {
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 390, 320, -1));
 
+        jLabel16.setText("Usuario activo:");
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, -1, -1));
+
+        tfUsuario.setEditable(false);
+        jPanel1.add(tfUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 70, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1570, 970));
 
         pack();
@@ -249,7 +259,7 @@ public class PantallaRegistro extends javax.swing.JInternalFrame {
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost/sistemapagos","root","");
             Statement stmt = con.createStatement();
-            stmt.executeUpdate("INSERT INTO `ineso` (`Alumno`, `Paciente`, `Grupo`, `Ciclo`, `Fecha`, `Concepto`, `Tratamiento`, `Observaciones`) "
+            stmt.executeUpdate("INSERT INTO `ineso` (`Alumno`, `Paciente`, `Grupo`, `Ciclo`, `Fecha`, `Concepto`, `Tratamiento`, `Observaciones`, `usuario_creacion`, `usuario_modificacion`) "
                     + " VALUES('"+tfAlumno.getText()+"','"+
                     tfPaciente.getText()+"','"+
                     jcbGrupo.getSelectedItem()+"','"+
@@ -257,7 +267,9 @@ public class PantallaRegistro extends javax.swing.JInternalFrame {
                     fecha+"','"+
                     concepto+"','"+
                     jcbTratamiento.getSelectedItem()+"','"+
-                    taObservaciones.getText()+"')");
+                    taObservaciones.getText()+"','"+
+                    idUser+"','"+
+                    idUser+"')");
             JOptionPane.showMessageDialog(null,"El pago se ha registrado exitosamente");
         } catch (SQLException ex) {
             Logger.getLogger(PantallaRegistro.class.getName()).log(Level.SEVERE, null, ex);
@@ -283,7 +295,26 @@ public class PantallaRegistro extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_rbclinica3ActionPerformed
 
-private void Vaciar() {
+
+    private void encontrarUsuario(){
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost/sistemapagos","root","");
+            Statement stm = con.createStatement();
+            String query = "SELECT nombre FROM usuarios WHERE id_usuario = '"+ idUser +"'";
+            //System.out.println(query);
+            ResultSet rs = stm.executeQuery(query);
+            if(rs.next()){
+                tfUsuario.setText(rs.getString("nombre"));
+            }else{
+                tfUsuario.setText("...");
+            }
+        } catch (Exception e) {
+            Logger.getLogger(ConsultaPagos.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println("Error: "+e);
+        }
+    }
+    
+    private void Vaciar() {
         tfAlumno.setText("");
         tfPaciente.setText("");
         jDateFecha.setCalendar(null);  
@@ -301,6 +332,7 @@ private void Vaciar() {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -321,5 +353,6 @@ private void Vaciar() {
     private javax.swing.JTextArea taObservaciones;
     private javax.swing.JTextField tfAlumno;
     private javax.swing.JTextField tfPaciente;
+    private javax.swing.JTextField tfUsuario;
     // End of variables declaration//GEN-END:variables
 }

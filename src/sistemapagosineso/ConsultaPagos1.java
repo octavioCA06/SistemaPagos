@@ -69,12 +69,13 @@ public class ConsultaPagos1 extends javax.swing.JInternalFrame {
     /**
      * Creates new form ConsultaPagos
      */
+    String idUser;
     
     
     
-    
-    public ConsultaPagos1() {
+    public ConsultaPagos1(String idUsuario) {
         initComponents();
+        idUser = idUsuario;
         
          try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -365,7 +366,7 @@ if(rs.next()) { //se valida si hay resultados
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if(tbPagos2.getSelectedRow() > -1){
             JFrame frame = new JFrame();
-            PantallaModificacion_1 modif = new PantallaModificacion_1(tfFolioSeleccionado.getText());
+            PantallaModificacion_1 modif = new PantallaModificacion_1(tfFolioSeleccionado.getText(), idUser);
             frame.add(modif);
             frame.setSize(1000, 800);
             frame.setResizable(true);
